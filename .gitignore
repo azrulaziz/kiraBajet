@@ -9,7 +9,7 @@
 
 # production
 /build
-/src/experiments
+/src/playground
 
 # misc
 .DS_Store

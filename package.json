@@ -22,11 +22,14 @@
     "redux": "^4.0.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.19.1",
+    "uuid": "^3.2.1",
     "validator": "^9.4.1",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0"
+  },
   "scripts": {
     "serve": "live-server public/",
     "build": "webpack",
