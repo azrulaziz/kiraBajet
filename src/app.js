@@ -1,6 +1,7 @@
 // install - import - use
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import 'normalize.css/normalize.css';
@@ -14,12 +15,18 @@ const store = configureStore();
 store.subscribe(() => {
     const state = store.getState();
     const getVisibileExpenses = getVisibleExpenses(state.expenses, state.filters)
-    console.log(getVisibileExpenses);
+    
 })
 
 store.dispatch(addExpense({description: 'Water Bill', amount: 30}))
 store.dispatch(addExpense({description: 'Gas Bill', amount: 50}))
-store.dispatch(setTextFilter('water'))
+store.dispatch(setTextFilter('bill'))
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+const jsx = (
+    <Provider store={store}>
+        <AppRouter />
+    </Provider>
+)
+
+ReactDOM.render(jsx, document.getElementById('app'));
 
