@@ -12,6 +12,7 @@ export default class ExpenseForm extends React.Component {
         amount: '',
         createdAt: moment(),
         focused: false,
+        error: ''
     }
 
     handleDescriptionChange = (e) => {
@@ -26,25 +27,44 @@ export default class ExpenseForm extends React.Component {
 
     handleAmountChange = (e) => {
         const amount = e.target.value;
-        const regex = /^\d*(\.\d{0,2})?$/;
+        const regex = /^\d{1,}(\.\d{0,2})?$/;
 
-        if (amount.match(regex)) {
+        // if no amount is entered set the state to nothing
+        if (!amount || amount.match(regex)) {
             this.setState({amount})
         }
     }
 
     handleDateChange = (createdAt) => {
-       this.setState({createdAt});
+        if (createdAt) {
+            this.setState({createdAt});
+        }
     }
 
     handleFocusChange = ({focused}) => {
         this.setState({focused});
     }
 
+    handleFormSubmit = (e) => {
+        e.preventDefault();
+        if (!this.state.description || !this.state.amount) {
+            this.setState({error: 'Please provide Description & Amount'})
+        } else {
+            this.setState({error: ''})
+            this.props.onSubmit({
+                description: this.state.description,
+                amount: parseFloat(this.state.amount, 10) * 100,
+                createdAt: this.state.createdAt.valueOf(),
+                notes: this.state.notes
+            })
+        }
+    }
+
     render() {
         return (
             <div>
-                <form>
+                {this.state.error && <p>{this.state.error}</p>}
+                <form onSubmit={this.handleFormSubmit}>
                     <input 
                         type="text" 
                         placeholder="Description" 

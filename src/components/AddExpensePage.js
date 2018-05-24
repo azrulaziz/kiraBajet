@@ -4,7 +4,9 @@ import ExpenseForm from './ExpenseForm';
 const AddExpensePage = () => (
     <div>
         add expense component
-        <ExpenseForm />
+        <ExpenseForm onSubmit={(expense) => {
+            console.log(expense);
+        }}/>
     </div>
 );
 
